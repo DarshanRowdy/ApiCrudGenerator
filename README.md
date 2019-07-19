@@ -57,6 +57,11 @@ Now you can use this 'api.auth' middleware anywhere
 
 #### You can pass the "AUTH-TOKEN" in api headers for the check authentication
 
+## Step 6: User "crud:api-generator" for the crud creation
+```php
+php artisan crud:api-generator User
+```
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
