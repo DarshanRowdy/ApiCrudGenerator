@@ -44,6 +44,13 @@ public function render($request, Exception $exception)
     return parent::render($request, $exception);
 }
 ```
+## Step 5: Add this line into your "app/Http/Kernel.php" $routeMiddleware[]
+
+```php
+'api.auth' => \DevDr\ApiCrudGenerator\Middleware\CheckAuth::class,
+```
+Now you can use this 'api.auth' middleware anywhere
+
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

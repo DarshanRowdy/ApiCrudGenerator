@@ -14,6 +14,8 @@ class DrCrudServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->make('DevDr\ApiCrudGenerator\Controllers\BaseApiController');
+        $this->app->make('DevDr\ApiCrudGenerator\Middleware\CheckAuth');
         $this->commands([
             CrudGenerator::class,
         ]);
