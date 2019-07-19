@@ -14,7 +14,7 @@ DevDr\ApiCrudGenerator\DrCrudServiceProvider::class
 
 ## Step 3: Add this function inside the "app/Exceptions/Handler.php"
 
-```python
+```php
 public function _errorMessage($responseCode = 400, $message = 'Bad Request'){
     $body = Json::encode(
         array(
@@ -30,7 +30,7 @@ public function _errorMessage($responseCode = 400, $message = 'Bad Request'){
 
 ## Step 4: Add those functions in the "render()"
 
-```python
+```php
 public function render($request, Exception $exception)
 {
     if($exception instanceof NotFoundHttpException){
