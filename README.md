@@ -15,6 +15,10 @@ DevDr\ApiCrudGenerator\DrCrudServiceProvider::class
 ## Step 3: Add this function inside the "app/Exceptions/Handler.php"
 
 ```php
+use Psy\Util\Json;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 public function _errorMessage($responseCode = 400, $message = 'Bad Request'){
     $body = Json::encode(
         array(
