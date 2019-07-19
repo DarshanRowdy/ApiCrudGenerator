@@ -51,6 +51,7 @@ public function render($request, Exception $exception)
 ```
 Now you can use this 'api.auth' middleware anywhere
 
+#### You can pass the "AUTH-TOKEN" in api headers for the check authentication
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
