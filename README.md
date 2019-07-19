@@ -62,6 +62,12 @@ Now you can use this 'api.auth' middleware anywhere
 php artisan crud:api-generator User
 ```
 
+## Step 7: After using middleware that in that function you can use the user object by this
+
+```php
+$users = $request->get('users');
+```
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
