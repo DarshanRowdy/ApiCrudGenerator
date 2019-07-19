@@ -1,0 +1,21 @@
+{
+    "name": "devdr/ApiCrudGenerator",
+    "description": "This Package is boost your speed of you REST api creation with the exception handling",
+    "authors": [
+        {
+            "name": "Darshan",
+            "email": "darshanrathod.info@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "DevDr\\ApiCrudGenerator\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DevDr\\ApiCrudGenerator\\": "src/"
+        }
+    }
+}
