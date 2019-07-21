@@ -65,7 +65,13 @@ php artisan crud:api-generator User
 ## Step 7: After using middleware that in that function you can use the user object by this
 
 ```php
-$users = $request->get('users');
+$user = $request->get('users');
+```
+#### OR
+
+without middleware you can use bellow function into the direct controller api action
+```php
+$user = $this->_checkAuth();
 ```
 
 ## Contributing

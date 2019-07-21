@@ -10,7 +10,6 @@ class {{modelName}}Controller extends BaseApiController
 {
     public function index({{modelName}}Request $request)
     {
-        $this->_checkAuth();
         $offset = isset($request->offset) ? $request->offset : config('app.default_offset');
         $limit = isset($request->limit) ? $request->limit : config('app.default_limit');
         try{
@@ -30,7 +29,6 @@ class {{modelName}}Controller extends BaseApiController
 
     public function store({{modelName}}Request $request)
     {
-        $this->_checkAuth();
         try{
             ${{modelNameSingularLowerCase}} = {{modelName}}::create($request->all());
         } catch (\Exception $exception){
@@ -42,7 +40,6 @@ class {{modelName}}Controller extends BaseApiController
 
     public function show($id)
     {
-        $this->_checkAuth();
         try{
             ${{modelNameSingularLowerCase}} = {{modelName}}::findOrFail($id);
         } catch (\Exception $exception){
@@ -54,7 +51,6 @@ class {{modelName}}Controller extends BaseApiController
 
     public function update({{modelName}}Request $request, $id)
     {
-        $this->_checkAuth();
         try{
             ${{modelNameSingularLowerCase}} = {{modelName}}::findOrFail($id);
             ${{modelNameSingularLowerCase}}->update($request->all());
@@ -67,7 +63,6 @@ class {{modelName}}Controller extends BaseApiController
 
     public function destroy($id)
     {
-        $this->_checkAuth();
         try{
             ${{modelNameSingularLowerCase}} = {{modelName}}::destroy($id);
         } catch (\Exception $exception){
