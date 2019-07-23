@@ -23,6 +23,8 @@ class CrudGenerator extends Command
     var $columns;
     var $databaseConnection;
 
+    var $property;
+
     protected $signature = 'crud:api-generator
     {name : Class (singular) for example User}';
 
@@ -108,6 +110,7 @@ class CrudGenerator extends Command
         $this->fieldsHidden = '';
         $this->fieldsFillable = '';
         $this->fieldsCast = '';
+        $property = [];
         foreach($modelInformation['fillable'] as $field)
         {
             // fillable and hidden
@@ -137,7 +140,14 @@ class CrudGenerator extends Command
                 }
             }
         }
+
+        foreach($this->columns as $col){
+            $field = $col['field'];
+            array_push($property, ' * @property $'.$field);
+        }
+        $properties = implode("\n",$property);
         // replace in stub
+        $stub = str_replace('{{property}}', $properties, $stub);
         $stub = str_replace('{{fillable}}', $this->fieldsFillable, $stub);
         $stub = str_replace('{{hidden}}', $this->fieldsHidden, $stub);
         $stub = str_replace('{{casts}}', $this->fieldsCast, $stub);
