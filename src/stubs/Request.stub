@@ -15,4 +15,9 @@ class {{modelName}}Request extends FormRequest
     {
         return [];
     }
+
+    public function messages()
+    {
+        return [];
+    }
 }
