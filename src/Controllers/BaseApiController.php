@@ -2,7 +2,7 @@
 
 namespace DevDr\ApiCrudGenerator\Controllers;
 
-use App\User;
+use App\Users;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Str;
 use Prophecy\Exception\Exception;
@@ -10,7 +10,7 @@ use Psy\Util\Json;
 
 class BaseApiController extends Controller
 {
-    /** @var User $user */
+    /** @var Users $user */
     public $user;
 
     protected function _getStatusCodeMessage($status)
@@ -127,7 +127,7 @@ class BaseApiController extends Controller
 
         try {
             $token = $_SERVER['HTTP_AUTH_TOKEN'];
-            $this->user = User::findIdentityByAccessToken($token);
+            $this->user = Users::findIdentityByAccessToken($token);
             if ($this->user == null) {
                 $this->_sendErrorResponse(401);
             }
