@@ -93,7 +93,7 @@ class BaseApiController extends Controller
         $status_header = 'HTTP/1.1 ' . $status . ' ' . $this->_getStatusCodeMessage($status);
 
         if ($customMessage !== null) {
-            $message .= ". " . $customMessage;
+            $message = $customMessage;
         }
 
         header($status_header);
@@ -148,7 +148,7 @@ class BaseApiController extends Controller
      */
     protected function _generateToken()
     {
-        return Str::random(16) . '_' . time();
+        return Str::random(64) . '_' . time();
     }
 
     protected function _getToken()
