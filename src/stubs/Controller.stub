@@ -18,7 +18,7 @@ class {{modelName}}Controller extends BaseApiController
             ${{modelNamePluralLowerCase}}->take($limit);
             $arr{{modelName}} = ${{modelNamePluralLowerCase}}->get();
         } catch (\Exception $exception){
-            $this->_sendErrorResponse(404);
+            $this->_sendErrorResponse(500);
         }
         $p['offset'] = $offset;
         $p['limit'] = $limit;
@@ -32,7 +32,7 @@ class {{modelName}}Controller extends BaseApiController
         try{
             ${{modelNameSingularLowerCase}} = {{modelName}}::create($request->all());
         } catch (\Exception $exception){
-            $this->_sendErrorResponse(400);
+            $this->_sendErrorResponse(500);
         }
         $response = ['{{modelNameSingularLowerCase}}' => ${{modelNameSingularLowerCase}}];
         $this->_sendResponse($response, '{{modelNameSingularLowerCase}} created success');
@@ -43,7 +43,7 @@ class {{modelName}}Controller extends BaseApiController
         try{
             ${{modelNameSingularLowerCase}} = {{modelName}}::findOrFail($id);
         } catch (\Exception $exception){
-            $this->_sendErrorResponse(400);
+            $this->_sendErrorResponse(500);
         }
         $response = ['{{modelNameSingularLowerCase}}' => ${{modelNameSingularLowerCase}}];
         $this->_sendResponse($response, '{{modelNameSingularLowerCase}} found success');
@@ -55,7 +55,7 @@ class {{modelName}}Controller extends BaseApiController
             ${{modelNameSingularLowerCase}} = {{modelName}}::findOrFail($id);
             ${{modelNameSingularLowerCase}}->update($request->all());
         } catch (\Exception $exception){
-            $this->_sendErrorResponse(400);
+            $this->_sendErrorResponse(500);
         }
         $response = ['{{modelNameSingularLowerCase}}' => ${{modelNameSingularLowerCase}}];
         $this->_sendResponse($response, '{{modelNameSingularLowerCase}} update success');
