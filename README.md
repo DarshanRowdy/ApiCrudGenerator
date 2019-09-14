@@ -67,6 +67,15 @@ php artisan crud:api-generator User
 ```php
 $user = $request->get('users');
 ```
+
+## Step 8: Add this function in the Users Model
+
+```php
+public static function findIdentityByAccessToken($token, $type = null)
+{
+    return static::where(['auth_token' => $token])->first();
+}
+```
 #### OR
 
 without middleware you can use bellow function into the direct controller api action
