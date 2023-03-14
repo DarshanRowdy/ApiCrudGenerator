@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\{{modelName}}Request;
-use App\{{modelName}};
+use App\Models\{{modelName}};
 use DevDr\ApiCrudGenerator\Controllers\BaseApiController;
 
 class {{modelName}}Controller extends BaseApiController
@@ -18,13 +18,13 @@ class {{modelName}}Controller extends BaseApiController
             ${{modelNamePluralLowerCase}}->take($limit);
             $arr{{modelName}} = ${{modelNamePluralLowerCase}}->get();
         } catch (\Exception $exception){
-            $this->_sendErrorResponse(404);
+            return $this->_sendErrorResponse(404);
         }
         $p['offset'] = $offset;
         $p['limit'] = $limit;
         $p['record_sent'] = count($arr{{modelName}});
         $response = ['{{modelNamePluralLowerCase}}' => $arr{{modelName}}, 'pagination' => $p];
-        $this->_sendResponse($response, '{{modelNamePluralLowerCase}} listing Success');
+        return $this->_sendResponse($response, '{{modelNamePluralLowerCase}} listing Success');
     }
 
     public function store({{modelName}}Request $request)
@@ -32,10 +32,10 @@ class {{modelName}}Controller extends BaseApiController
         try{
             ${{modelNameSingularLowerCase}} = {{modelName}}::create($request->all());
         } catch (\Exception $exception){
-            $this->_sendErrorResponse(400);
+            return $this->_sendErrorResponse(400);
         }
         $response = ['{{modelNameSingularLowerCase}}' => ${{modelNameSingularLowerCase}}];
-        $this->_sendResponse($response, '{{modelNameSingularLowerCase}} created success');
+        return $this->_sendResponse($response, '{{modelNameSingularLowerCase}} created success');
     }
 
     public function show($id)
@@ -43,10 +43,10 @@ class {{modelName}}Controller extends BaseApiController
         try{
             ${{modelNameSingularLowerCase}} = {{modelName}}::findOrFail($id);
         } catch (\Exception $exception){
-            $this->_sendErrorResponse(400);
+            return $this->_sendErrorResponse(400);
         }
         $response = ['{{modelNameSingularLowerCase}}' => ${{modelNameSingularLowerCase}}];
-        $this->_sendResponse($response, '{{modelNameSingularLowerCase}} found success');
+        return $this->_sendResponse($response, '{{modelNameSingularLowerCase}} found success');
     }
 
     public function update({{modelName}}Request $request, $id)
@@ -55,10 +55,10 @@ class {{modelName}}Controller extends BaseApiController
             ${{modelNameSingularLowerCase}} = {{modelName}}::findOrFail($id);
             ${{modelNameSingularLowerCase}}->update($request->all());
         } catch (\Exception $exception){
-            $this->_sendErrorResponse(400);
+            return $this->_sendErrorResponse(400);
         }
         $response = ['{{modelNameSingularLowerCase}}' => ${{modelNameSingularLowerCase}}];
-        $this->_sendResponse($response, '{{modelNameSingularLowerCase}} update success');
+        return $this->_sendResponse($response, '{{modelNameSingularLowerCase}} update success');
     }
 
     public function destroy($id)
@@ -66,9 +66,9 @@ class {{modelName}}Controller extends BaseApiController
         try{
             ${{modelNameSingularLowerCase}} = {{modelName}}::destroy($id);
         } catch (\Exception $exception){
-            $this->_sendErrorResponse(204);
+            return $this->_sendErrorResponse(204);
         }
         $response = ['{{modelNameSingularLowerCase}}' => ${{modelNameSingularLowerCase}}];
-        $this->_sendResponse($response, '{{modelNameSingularLowerCase}} delete successfully');
+        return $this->_sendResponse($response, '{{modelNameSingularLowerCase}} delete successfully');
     }
 }

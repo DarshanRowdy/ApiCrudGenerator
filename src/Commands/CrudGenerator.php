@@ -1,11 +1,12 @@
 <?php
 
-namespace DevDr\ApiCrudGenerator\src\Commands;
+namespace DevDr\ApiCrudGenerator\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 
 class CrudGenerator extends Command
 {
@@ -74,7 +75,7 @@ class CrudGenerator extends Command
         if(Schema::hasTable($table)){
             $this->controller($name);
             $this->request($name);
-            File::append(base_path('routes/api.php'), 'Route::resource(\'' . str_plural(strtolower($name)) . "', '{$name}Controller');");
+            File::append(base_path('routes/api.php'), 'Route::resource(\'' . Str::plural(strtolower($name)) . "', '{$name}Controller');");
             $this->model($name);
         } else {
             $this->doComment('Database does not have '.$table.' table',true);
@@ -189,9 +190,9 @@ class CrudGenerator extends Command
 
         $stub = $this->replaceModuleInformation($stub,$model);
 
-        $this->doComment('Writing model: '. app_path("/{$name}.php"), true);
+        $this->doComment('Writing Model: '. app_path("/{$name}.php"), true);
 
-        file_put_contents(app_path("/{$name}.php"), $stub);
+        file_put_contents(app_path("/Models/{$name}.php"), $stub);
     }
 
     protected function controller($name)
@@ -204,12 +205,12 @@ class CrudGenerator extends Command
             ],
             [
                 $name,
-                strtolower(str_plural($name)),
+                strtolower(Str::plural($name)),
                 strtolower($name)
             ],
             $this->getStub('Controller')
         );
-
+        $this->doComment('Writing Controller: '. app_path("/{$name}.php"), true);
         if(!file_exists($path = app_path('/Http/Controllers/Api')))
             mkdir($path, 0777, true);
         file_put_contents(app_path("/Http/Controllers/Api/{$name}Controller.php"), $controllerTemplate);
@@ -225,6 +226,7 @@ class CrudGenerator extends Command
         if(!file_exists($path = app_path('/Http/Requests')))
             mkdir($path, 0777, true);
 
+        $this->doComment('Writing Requests: '. app_path("/{$name}.php"), true);
         file_put_contents(app_path("/Http/Requests/{$name}Request.php"), $requestTemplate);
     }
 }

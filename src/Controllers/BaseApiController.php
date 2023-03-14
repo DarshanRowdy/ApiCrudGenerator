@@ -66,7 +66,7 @@ class BaseApiController extends Controller
 
     protected function _sendResponse($body = [], $message = '', $http_status = 200)
     {
-        $content_type = 'text/json';
+        $content_type = 'application/json';
         $status_header = 'HTTP/1.1 ' . $http_status . ' ' . $this->_getStatusCodeMessage($http_status);
         header($status_header);
         header('Content-type: ' . $content_type);
@@ -75,19 +75,16 @@ class BaseApiController extends Controller
             $body = array('message' => $body);
         }
 
-        $body = Json::encode([
+        return response()->json([
             "success" => true,
             'responseCode' => $http_status,
             'message' => $message,
             "data" => $body,
             "timestamp" => time()
         ]);
-
-        echo $body;
-        die;
     }
 
-    protected function _sendErrorResponse($status = 400, $customMessage = null, $errorCode = null, $contentType = 'text/json')
+    protected function _sendErrorResponse($status = 400, $customMessage = null, $errorCode = null, $contentType = 'applicationjson')
     {
         $message = $this->_getStatusCodeMessage($status);
         $status_header = 'HTTP/1.1 ' . $status . ' ' . $this->_getStatusCodeMessage($status);
@@ -106,41 +103,31 @@ class BaseApiController extends Controller
             $code = $errorCode;
         }
 
-        $body = Json::encode(
-            array(
-                "success" => false,
-                "responseCode" => $code,
-                'message' => $message
-            )
-        );
-
-        echo $body;
-        die;
+        return response()->json([
+            "success" => false,
+            "responseCode" => $code,
+            'message' => $message
+        ]);
     }
 
     protected function _checkAuth()
     {
         if (!isset($_SERVER['HTTP_AUTH_TOKEN'])) {
             // Error: Unauthorized
-            $this->_sendErrorResponse(401);
+            return $this->_sendErrorResponse(401);
         }
 
         try {
             $token = $_SERVER['HTTP_AUTH_TOKEN'];
             $this->user = User::findIdentityByAccessToken($token);
             if ($this->user == null) {
-                $this->_sendErrorResponse(401);
+                return $this->_sendErrorResponse(401);
             }
-
-            /*if ($this->user->status == User::STATUS_DELETED) {
-                $this->_sendErrorResponse(423, "The user is banned.");
-            }*/
 
             return $this->user;
         } catch (Exception $e) {
-            $this->_sendErrorResponse(400);
+            return $this->_sendErrorResponse(400);
         }
-        return false;
     }
 
     /**
