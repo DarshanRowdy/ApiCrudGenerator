@@ -75,7 +75,7 @@ class CrudGenerator extends Command
         if(Schema::hasTable($table)){
             $this->controller($name);
             $this->request($name);
-            File::append(base_path('routes/api.php'), 'Route::resource(\'' . Str::plural(strtolower($name)) . "', 'App\Http\Controllers\Api\{$name}Controller');");
+            File::append(base_path('routes/api.php'), 'Route::resource(\'' . Str::plural(strtolower($name)) . "', 'App\Http\Controllers\Api\'.$name.'Controller');");
             $this->model($name);
         } else {
             $this->doComment('Database does not have '.$table.' table',true);
