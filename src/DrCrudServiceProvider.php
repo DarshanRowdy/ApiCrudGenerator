@@ -2,7 +2,7 @@
 
 namespace DevDr\ApiCrudGenerator;
 
-use DevDr\ApiCrudGenerator\src\Commands\CrudGenerator;
+use DevDr\ApiCrudGenerator\Commands\CrudGenerator;
 use Illuminate\Support\ServiceProvider;
 
 class DrCrudServiceProvider extends ServiceProvider
