@@ -47,4 +47,9 @@ class {{modelName}} extends Model
      * @var array
      */
     protected $dates = [{{dates}}];
+
+    public static function findByField($field, $value)
+    {
+        return self::where($field, (string)$value)->first();
+    }
 }
