@@ -2,22 +2,21 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use DevDr\ApiCrudGenerator\Requests\BaseRequest;
 
-class {{modelName}}Request extends FormRequest
+class {{modelName}}Request extends BaseRequest
 {
-    public function authorize()
-    {
-        return true;
-    }
-
     public function rules()
     {
-        return [];
+        return [
+            //
+        ];
     }
 
     public function messages()
     {
-        return [];
+        return [
+            //
+        ];
     }
 }
